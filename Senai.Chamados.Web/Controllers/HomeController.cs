@@ -12,7 +12,7 @@ namespace Senai.Chamados.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Index Controller";
-            ViewBag.Mensagem = "Seja Bem Vindo";
+            ViewBag.Mensagem = "Seja Bem Vindo!";
             return View();
         }
     }
