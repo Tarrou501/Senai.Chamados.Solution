@@ -1,0 +1,26 @@
+﻿@model Senai.Chamados.Web.Models.CadastrarUsuarioViewModel
+
+
+@{
+    ViewBag.Title = "CadastrarUsuario";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Cadastrar Usuario</h2>
+
+@using (Html.BeginForm())
+{
+    <Label>Nome</Label>
+    @Html.TextBoxFor(x => x.Nome)
+    <br />
+    <label> Email</label>
+    @Html.TextBoxFor(x => x.Email)
+    <br />
+    <label> Telefone</label>
+    @Html.TextBoxFor(x => x.Telefone)
+    <br />
+    <label>Senha</label>
+    @Html.TextBoxFor(x => x.Senha)
+    <br />
+    <input type="submit" name="Cadastrar" value="Cadastra">
+}
