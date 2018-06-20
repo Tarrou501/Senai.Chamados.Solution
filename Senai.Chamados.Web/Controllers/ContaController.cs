@@ -16,6 +16,7 @@ namespace Senai.Chamados.Web.Controllers
 
         public ActionResult CadastrarUsuario()
         {
+
             return View();
         }
     }
