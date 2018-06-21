@@ -1,26 +1,41 @@
-﻿@model Senai.Chamados.Web.Models.CadastrarUsuarioViewModel
+﻿@model Senai.Chamados.Web.ViewModels.CadastrarUsuarioViewModel
 
 
 @{
-    ViewBag.Title = "CadastrarUsuario";
-    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+                /**/
+
+                ViewBag.Title = "CadastrarUsuario";
+                Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<h2>Cadastrar Usuario</h2>
+@section Styles{
+    <link href="http://getbootstrap.com/docs/4.1/examples/sign-in/signin.css" rel="stylesheet" />
 
-@using (Html.BeginForm())
+}
+
+@using (Html.BeginForm("CadastrarUsuario", "Conta", FormMethod.Post, new { @Class = "form-signin" }))
 {
-    <Label>Nome</Label>
-    @Html.TextBoxFor(x => x.Nome)
-    <br />
-    <label> Email</label>
-    @Html.TextBoxFor(x => x.Email)
-    <br />
-    <label> Telefone</label>
-    @Html.TextBoxFor(x => x.Telefone)
-    <br />
-    <label>Senha</label>
-    @Html.TextBoxFor(x => x.Senha)
-    <br />
-    <input type="submit" name="Cadastrar" value="Cadastra">
+    <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Criar Conta</h1>
+
+    @Html.LabelFor(x => x.Nome, new { @class = "sr-only" });
+    @Html.TextBoxFor(x => x.Nome, new { @class = "form-control", placeHolder = "Informe seu Nome", required = "true" });
+
+    @Html.LabelFor(x => x.Email, new { @class = "sr-only" });
+    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeHolder = "Informe o Email", required = "true" });
+
+    @Html.LabelFor(x => x.Telefone, new { @class = "sr-only" });
+    @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control", placeHolder = "Informe o Telefone", required = "true" });
+
+    @Html.LabelFor(x => x.Senha, new { @class = "sr-only" });
+    @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", placeHolder = "Informe a senha", required = "true" });
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+<p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 }
+
+
+
+
+
+
