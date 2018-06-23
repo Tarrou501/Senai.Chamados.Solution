@@ -20,7 +20,7 @@
         <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
         <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
     </div>
-
+    <p>@TempData["Autenticado"]</p>
     <p>@ViewBag.Erro</p>
 
     <div class="form-label-group">
@@ -49,6 +49,22 @@
         @Html.LabelFor(x => x.Senha)
         @Html.ValidationMessageFor(x => x.Senha)
     </div>
+
+
+
+    <div class="form-label-group">
+        @Html.DropDownListFor(x => x.SexoId, Model.Sexo, "Selecione o Sexo", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.SexoId)
+    </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Telefone").mask('(00) 0000-0000');
+        })
+    </script>
 }

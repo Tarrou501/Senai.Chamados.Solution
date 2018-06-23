@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.ViewModels
 {
@@ -28,5 +29,10 @@ namespace Senai.Chamados.Web.ViewModels
         [DataType (DataType.Password)]
         public String Senha { get; set; }
 
+        // SelectList vai contem uma lista de dados para uso do Combobox
+        public SelectList Sexo { get; set; }
+
+        [Required(ErrorMessage = "Informe o sexo")]
+        public string SexoId { get; set; }
     }
 }
