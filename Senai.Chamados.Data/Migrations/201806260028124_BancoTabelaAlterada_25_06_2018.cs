@@ -5,7 +5,7 @@ namespace Senai.Chamados.Data.Migrations
     
     public partial class BancoTabelaAlterada_25_06_2018 : DbMigration
     {
-        public override void Up()
+         public override void Up()
         {
             RenameTable(name: "dbo.UsuarioDomains", newName: "Usuarios");
             AlterColumn("dbo.Usuarios", "Nome", c => c.String(nullable: false));

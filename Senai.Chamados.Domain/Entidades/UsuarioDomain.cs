@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Senai.Chamados.Domain.Entidades
-{
+{ 
     [Table("Usuarios") ]
     public class UsuarioDomain:BaseDomain
     {

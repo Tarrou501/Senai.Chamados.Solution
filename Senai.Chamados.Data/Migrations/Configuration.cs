@@ -9,7 +9,7 @@ namespace Senai.Chamados.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+             AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(Senai.Chamados.Data.Contexto.SenaiChamadosDBContext context)
