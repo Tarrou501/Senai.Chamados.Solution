@@ -1,4 +1,6 @@
-﻿using Senai.Chamados.Web.ViewModels;
+﻿using Senai.Chamados.Data.Contexto;
+using Senai.Chamados.Domain.Entidades;
+using Senai.Chamados.Web.ViewModels;
 
 using System.Collections.Generic;
 
@@ -68,6 +70,16 @@ namespace Senai.Chamados.Web.Controllers
                 ViewBag.Erro = "Dados inválido";
                 return View(usuario);
             }
+
+            // Lembrar de instalar o Entity Framework
+            SenaiChamadosDBContext context = new SenaiChamadosDBContext();
+            UsuarioDomain usuarioBanco = new UsuarioDomain();
+            usuarioBanco.Nome = usuario.Nome;
+            usuarioBanco.Email = usuario.Email;
+            usuarioBanco.Senha = usuario.Senha;
+            usuarioBanco.Telefone = usuario.Telefone;
+            context.Usuarios.Add(usuarioBanco);
+            context.SaveChanges();
 
             return View(usuario);
         }
