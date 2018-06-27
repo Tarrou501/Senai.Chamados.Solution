@@ -22,6 +22,7 @@ namespace Senai.Chamados.Domain.Entidades
         public string Senha { get; set; }
         public string Telefone { get; set; }
 
+        
         [MaxLength(11)]
         public string Cpf { get; set; }        
         public string Logradouro { get; set; }

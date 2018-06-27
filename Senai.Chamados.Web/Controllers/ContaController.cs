@@ -1,7 +1,7 @@
 ﻿using Senai.Chamados.Data.Contexto;
 using Senai.Chamados.Domain.Entidades;
 using Senai.Chamados.Web.ViewModels;
-
+using System;
 using System.Collections.Generic;
 
 
@@ -72,16 +72,42 @@ namespace Senai.Chamados.Web.Controllers
             }
 
             // Lembrar de instalar o Entity Framework
-            SenaiChamadosDBContext context = new SenaiChamadosDBContext();
-            UsuarioDomain usuarioBanco = new UsuarioDomain();
-            usuarioBanco.Nome = usuario.Nome;
-            usuarioBanco.Email = usuario.Email;
-            usuarioBanco.Senha = usuario.Senha;
-            usuarioBanco.Telefone = usuario.Telefone;
-            context.Usuarios.Add(usuarioBanco);
-            context.SaveChanges();
+            SenaiChamadosDBContext objDbContext = new SenaiChamadosDBContext();
+            UsuarioDomain objUsuario = new UsuarioDomain();
+            try
+            {
+                objUsuario.id = Guid.NewGuid();
+                objUsuario.Nome = usuario.Nome;
+                objUsuario.Email = usuario.Email;
+                objUsuario.Senha = usuario.Senha;
+                objUsuario.Telefone = usuario.Telefone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "").Trim();
+                objUsuario.Cpf = usuario.Cpf.Replace(".","").Replace("-","");
+                objUsuario.Logradouro = usuario.Logradouro;
+                objUsuario.Numero = usuario.Numero;
+                objUsuario.Complemento = usuario.Complemento;
+                objUsuario.Bairro = usuario.Bairro;
+                objUsuario.Cep = usuario.Cep.Replace("-", "");
+                objUsuario.Cidade = usuario.Cidade;
+                objUsuario.Estado = usuario.Estado;
+                objUsuario.DataAlteracao = DateTime.Now;
+                objUsuario.DataCriacao = DateTime.Now;
 
-            return View(usuario);
+                objDbContext.Usuarios.Add(objUsuario);
+                objDbContext.SaveChanges();
+
+                TempData["Messagem"] = "Usuário cadastrado";
+                return RedirectToAction("Login");
+            }
+            catch(System.Exception ex)
+            {
+                ViewBag.Erro = ex.Message;
+                return View(usuario);
+            }
+            finally
+            {
+                objDbContext = null;
+                objUsuario = null;
+            }
         }
 
         private SelectList ListaSexo()

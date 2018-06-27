@@ -24,7 +24,7 @@
     <p>@ViewBag.Erro</p>
 
     <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.Nome, new { @class = "form-control",placeHolder ="Informe a Nome"  })
         @Html.LabelFor(x => x.Nome)
         @Html.ValidationMessageFor(x => x.Nome)
     </div>
@@ -40,6 +40,55 @@
         @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control" })
         @Html.LabelFor(x => x.Telefone)
         @Html.ValidationMessageFor(x => x.Telefone)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Cpf, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Cpf)
+        @Html.ValidationMessageFor(x => x.Cpf)
+    </div>
+
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Logradouro, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Logradouro)
+        @Html.ValidationMessageFor(x => x.Logradouro)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Numero, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Numero)
+        @Html.ValidationMessageFor(x => x.Numero)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Complemento, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Complemento)
+        @Html.ValidationMessageFor(x => x.Complemento)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Bairro, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Bairro)
+        @Html.ValidationMessageFor(x => x.Bairro)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Cep, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Cep)
+        @Html.ValidationMessageFor(x => x.Cep)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Cidade, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Cidade)
+        @Html.ValidationMessageFor(x => x.Cidade)
+    </div>
+
+    <div class="form-label-group">
+        @Html.TextBoxFor(x => x.Estado, new { @class = "form-control" })
+        @Html.LabelFor(x => x.Estado)
+        @Html.ValidationMessageFor(x => x.Estado)
     </div>
 
     <div class="form-label-group">
@@ -65,6 +114,8 @@
     <script>
         $(document).ready(function () {
             $("#Telefone").mask('(00) 0000-0000');
+            $("#Cpf").mask('000.000.000-00');
+            $("#Cep").mask('00000-000');
         })
     </script>
 }
