@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contratos\IRepositorioBase.cs" />
+    <Compile Include="Contratos\IUsuarioRepositorio.cs" />
     <Compile Include="Entidades\BaseDomain.cs" />
     <Compile Include="Entidades\UsuarioDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
 ﻿using Senai.Chamados.Data.Contexto;
+using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
 using Senai.Chamados.Web.ViewModels;
 using System;
@@ -29,20 +30,36 @@ namespace Senai.Chamados.Web.Controllers
                 return View();
             }
 
-            // Valida Usuário
-            if (login.Email =="senai@senai.sp" && login.Senha =="123")
+            using (UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
             {
-                TempData["Autenticado"] = "Usuário Autenticado";
-                // Redireciona para a página Home
+                UsuarioDomain objUsuario = _repUsuario.Login(login.Email, login.Senha);
+                if(objUsuario != null)
+                {
+                    RedirectToAction("Index", "Usuario");
+                }
+                else
+                {
+                    ViewBag.Erro = "Usuario ou senha inválido, Tente novamente";
+                    return View(login);
+                }
 
-                return RedirectToAction("Index","Home");
+
             }
-            else
-            {
-                TempData["Autenticado"] = "Usuário não cadastrado";
-                // Redireciona para a página de Cadastro de usuário
-                return RedirectToAction("CadastrarUsuario");
-            }
+
+                // Valida Usuário
+                if (login.Email == "senai@senai.sp" && login.Senha == "123")
+                {
+                    TempData["Autenticado"] = "Usuário Autenticado";
+                    // Redireciona para a página Home
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["Autenticado"] = "Usuário não cadastrado";
+                    // Redireciona para a página de Cadastro de usuário
+                    return RedirectToAction("CadastrarUsuario");
+                }
 
             // Não faz mais sentido, pois foi implementado o return acima.
             //return View();
@@ -76,7 +93,11 @@ namespace Senai.Chamados.Web.Controllers
             UsuarioDomain objUsuario = new UsuarioDomain();
             try
             {
-                objUsuario.id = Guid.NewGuid();
+                // Não utilizado mais pois foi tratado no onSaveChanged
+                //objUsuario.id = Guid.NewGuid();
+                //objUsuario.DataAlteracao = DateTime.Now;
+                //objUsuario.DataCriacao = DateTime.Now;
+
                 objUsuario.Nome = usuario.Nome;
                 objUsuario.Email = usuario.Email;
                 objUsuario.Senha = usuario.Senha;
@@ -89,11 +110,14 @@ namespace Senai.Chamados.Web.Controllers
                 objUsuario.Cep = usuario.Cep.Replace("-", "");
                 objUsuario.Cidade = usuario.Cidade;
                 objUsuario.Estado = usuario.Estado;
-                objUsuario.DataAlteracao = DateTime.Now;
-                objUsuario.DataCriacao = DateTime.Now;
-
-                objDbContext.Usuarios.Add(objUsuario);
-                objDbContext.SaveChanges();
+                
+                // Não é mai necessário pois implementado a classe UsuarioRepositorio
+                //objDbContext.Usuarios.Add(objUsuario);
+                //objDbContext.SaveChanges();
+                using(UsuarioRepositorio _repositorio = new UsuarioRepositorio())
+                {
+                    _repositorio.Inserir(objUsuario);
+                }
 
                 TempData["Messagem"] = "Usuário cadastrado";
                 return RedirectToAction("Login");
