@@ -83,12 +83,13 @@ namespace Senai.Chamados.Data.Repositorios
                 return false;
         }
 
+
         /// <summary>
         /// Lista todos os usuário do banco
         /// </summary>
         /// <param name="includes">include para fazer Inner Join</param>
         /// <returns>uma lista de usuário</returns>
-        public List<UsuarioDomain> List(string[] includes = null)
+        public List<UsuarioDomain> Listar(string[] includes = null)
         {
             var query = _contexto.Usuarios.AsQueryable();
             if(includes != null)

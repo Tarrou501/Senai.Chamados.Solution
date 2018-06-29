@@ -13,8 +13,9 @@
 
 @using (Html.BeginForm("Login", "Conta", FormMethod.Post, new { @Class = "form-signin" }))
 {
-    <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <img class="mb-4" src="~/Content/img/senai.png" alt="" width="300" height="72" align="center">
+    <h1 class="h3 mb-3 font-weight-normal" align="center" >Login</h1>
+    <p>Faça o Login para abrir chamados em nosso sistema</p>
 
     <p>@ViewBag.Erro</p>
     <p>@TempData["Messagem"]</p>
@@ -29,7 +30,7 @@
     <div class="form-label-group">
         @* @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", placeHolder = "Informe a senha", required = "true" })  *@
         <!--  Usar o componente PasswordFor em vez do TextBoxFor para aparecer * -->
-        @Html.PasswordFor(x => x.Senha)
+        @Html.PasswordFor(x => x.Senha, new { @class = "form-control" })
         @Html.LabelFor(x => x.Senha)
         @Html.ValidationMessageFor(x => x.Senha)
     </div>

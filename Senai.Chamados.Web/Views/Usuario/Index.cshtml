@@ -1,8 +1,28 @@
-﻿
+﻿@model Senai.Chamados.Web.ViewModels.Usuario.ListaUsuarioViewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<h2>Index</h2>
-
+<h2>Tela do Usuario</h2>
+<br />
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+        </tr>
+</thead>
+    <tbody>
+        @foreach (var usuario in Model.ListaUsuarios)
+        {
+        <tr>
+            <td>@Html.DisplayFor(x => usuario.Nome)</td>
+            <td>@Html.DisplayFor(x => usuario.Email)</td>
+            <td>@Html.DisplayFor( x => usuario.Telefone)</td>
+        </tr>
+        }
+    </tbody>
+</table>

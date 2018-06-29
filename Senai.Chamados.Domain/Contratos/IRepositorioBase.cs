@@ -7,7 +7,7 @@ namespace Senai.Chamados.Domain.Contratos
     public interface IRepositorioBase<TDomain> where TDomain :class
     {
         TDomain BuscarPorId(Guid id, string[] includes = null);
-        List<TDomain> List(string[] includes = null);
+        List<TDomain> Listar(string[] includes = null);
         bool Inserir(TDomain domain);
         bool Alterar(TDomain domain);
         bool Deletar(TDomain domain);

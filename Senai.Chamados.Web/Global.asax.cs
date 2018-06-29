@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senai.Chamados.Web.Automapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,8 @@ namespace Senai.Chamados.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            AutoMapperConfig.RegisterMapping();
         }
     }
 }

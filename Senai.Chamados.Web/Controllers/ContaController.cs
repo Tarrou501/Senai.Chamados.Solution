@@ -1,4 +1,5 @@
-﻿using Senai.Chamados.Data.Contexto;
+﻿using AutoMapper;
+using Senai.Chamados.Data.Contexto;
 using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
 using Senai.Chamados.Web.ViewModels;
@@ -35,7 +36,7 @@ namespace Senai.Chamados.Web.Controllers
                 UsuarioDomain objUsuario = _repUsuario.Login(login.Email, login.Senha);
                 if(objUsuario != null)
                 {
-                    RedirectToAction("Index", "Usuario");
+                    return  RedirectToAction("Index", "Usuario");                   
                 }
                 else
                 {
@@ -89,7 +90,10 @@ namespace Senai.Chamados.Web.Controllers
             }
 
             // Lembrar de instalar o Entity Framework
-            SenaiChamadosDBContext objDbContext = new SenaiChamadosDBContext();
+
+            // Utilizamos UsuarioRepositorio _repositorio em vez de SenaiChamadosDBContext
+            //SenaiChamadosDBContext objDbContext = new SenaiChamadosDBContext();
+
             UsuarioDomain objUsuario = new UsuarioDomain();
             try
             {
@@ -98,25 +102,31 @@ namespace Senai.Chamados.Web.Controllers
                 //objUsuario.DataAlteracao = DateTime.Now;
                 //objUsuario.DataCriacao = DateTime.Now;
 
-                objUsuario.Nome = usuario.Nome;
-                objUsuario.Email = usuario.Email;
-                objUsuario.Senha = usuario.Senha;
-                objUsuario.Telefone = usuario.Telefone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "").Trim();
-                objUsuario.Cpf = usuario.Cpf.Replace(".","").Replace("-","");
-                objUsuario.Logradouro = usuario.Logradouro;
-                objUsuario.Numero = usuario.Numero;
-                objUsuario.Complemento = usuario.Complemento;
-                objUsuario.Bairro = usuario.Bairro;
-                objUsuario.Cep = usuario.Cep.Replace("-", "");
-                objUsuario.Cidade = usuario.Cidade;
-                objUsuario.Estado = usuario.Estado;
-                
+                //objUsuario.Nome = usuario.Nome;
+                //objUsuario.Email = usuario.Email;
+                //objUsuario.Senha = usuario.Senha;
+                //objUsuario.Telefone = usuario.Telefone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "").Trim();
+                //objUsuario.Cpf = usuario.Cpf.Replace(".","").Replace("-","");
+                //objUsuario.Cep = usuario.Cep.Replace("-", "");
+                //objUsuario.Logradouro = usuario.Logradouro;
+                //objUsuario.Numero = usuario.Numero;
+                //objUsuario.Complemento = usuario.Complemento;
+                //objUsuario.Bairro = usuario.Bairro;
+                //objUsuario.Cidade = usuario.Cidade;
+                //objUsuario.Estado = usuario.Estado;
+
                 // Não é mai necessário pois implementado a classe UsuarioRepositorio
                 //objDbContext.Usuarios.Add(objUsuario);
                 //objDbContext.SaveChanges();
-                using(UsuarioRepositorio _repositorio = new UsuarioRepositorio())
+
+                usuario.Telefone = usuario.Telefone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "").Trim();
+                usuario.Cpf = usuario.Cpf.Replace(".","").Replace("-","");
+                usuario.Cep = usuario.Cep.Replace("-", "");
+
+                using (UsuarioRepositorio _repositorio = new UsuarioRepositorio())
                 {
-                    _repositorio.Inserir(objUsuario);
+                    //_repositorio.Inserir(objUsuario);
+                    _repositorio.Inserir(Mapper.Map<CadastrarUsuarioViewModel,UsuarioDomain>(usuario));
                 }
 
                 TempData["Messagem"] = "Usuário cadastrado";
@@ -129,7 +139,7 @@ namespace Senai.Chamados.Web.Controllers
             }
             finally
             {
-                objDbContext = null;
+              //  objDbContext = null;
                 objUsuario = null;
             }
         }
