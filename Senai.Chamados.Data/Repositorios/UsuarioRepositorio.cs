@@ -55,6 +55,7 @@ namespace Senai.Chamados.Data.Repositorios
         /// <returns> retorna true se o usuário foi excluido e false se não</returns>
         public bool Deletar(UsuarioDomain domain)
         {
+            //_contexto.Entry(domain).State = EntityState.Deleted;
             _contexto.Usuarios.Remove(domain);
             int linhasExcluidas = _contexto.SaveChanges();
             if (linhasExcluidas > 0)

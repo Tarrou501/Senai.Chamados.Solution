@@ -1,32 +1,30 @@
-﻿@model Senai.Chamados.Web.ViewModels.CadastrarUsuarioViewModel
-
-
+﻿@model Senai.Chamados.Web.ViewModels.Usuario.UsuarioViewModel
 @{
-    /**/
-
-    ViewBag.Title = "CadastrarUsuario";
+    ViewBag.Title = "Editar";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
+
 
 @section Styles{
     <link href="http://getbootstrap.com/docs/4.1/examples/floating-labels/floating-labels.css" rel="stylesheet" />
 
 }
 
-@using (Html.BeginForm("CadastrarUsuario", "Conta", FormMethod.Post, new { @Class = "form-signin" }))
+@using (Html.BeginForm("Editar", "Usuario", FormMethod.Post, new { @Class = "form-signin" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="text-center mb-4">
-        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
-        <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+        <h1 class="h3 mb-3 font-weight-normal">Editar Usuário</h1>
+        <p>Altere os dados do usuário</p>
     </div>
-    <p>@TempData["Autenticado"]</p>
+
     <p>@ViewBag.Erro</p>
 
+    @Html.HiddenFor(x => x.Id)
+
     <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Nome, new { @class = "form-control",placeHolder ="Informe a Nome"  })
+        @Html.TextBoxFor(x => x.Nome, new { @class = "form-control", placeHolder = "Informe a Nome" })
         @Html.LabelFor(x => x.Nome)
         @Html.ValidationMessageFor(x => x.Nome)
     </div>
@@ -103,11 +101,15 @@
 
 
 
-    <div class="form-label-group">
-        @Html.DropDownListFor(x => x.SexoId, Model.Sexo, "Selecione o Sexo", new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.SexoId)
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    @*
+
+        <div class="form-label-group">
+            @Html.DropDownListFor(x => x.SexoId, Model.Sexo, "Selecione o Sexo", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.SexoId)
+        </div>
+    *@
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>
     <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
 }
 
@@ -121,3 +123,4 @@
         })
     </script>
 }
+

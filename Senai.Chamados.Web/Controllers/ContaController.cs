@@ -23,6 +23,7 @@ namespace Senai.Chamados.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel login)
         {
             if (!ModelState.IsValid)
@@ -48,19 +49,19 @@ namespace Senai.Chamados.Web.Controllers
             }
 
                 // Valida Usuário
-                if (login.Email == "senai@senai.sp" && login.Senha == "123")
-                {
-                    TempData["Autenticado"] = "Usuário Autenticado";
-                    // Redireciona para a página Home
+                //if (login.Email == "senai@senai.sp" && login.Senha == "123")
+                //{
+                //    TempData["Autenticado"] = "Usuário Autenticado";
+                //    // Redireciona para a página Home
 
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    TempData["Autenticado"] = "Usuário não cadastrado";
-                    // Redireciona para a página de Cadastro de usuário
-                    return RedirectToAction("CadastrarUsuario");
-                }
+                //    return RedirectToAction("Index", "Home");
+                //}
+                //else
+                //{
+                //    TempData["Autenticado"] = "Usuário não cadastrado";
+                //    // Redireciona para a página de Cadastro de usuário
+                //    return RedirectToAction("CadastrarUsuario");
+                //}
 
             // Não faz mais sentido, pois foi implementado o return acima.
             //return View();
@@ -81,6 +82,7 @@ namespace Senai.Chamados.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CadastrarUsuario(CadastrarUsuarioViewModel usuario)
         {
             usuario.Sexo = ListaSexo();

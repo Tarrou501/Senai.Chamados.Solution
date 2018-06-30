@@ -34,7 +34,7 @@ namespace Senai.Chamados.Web.ViewModels.Usuario
         // SelectList vai contem uma lista de dados para uso do Combobox
         public SelectList Sexo { get; set; }
 
-        [Required(ErrorMessage = "Informe o sexo")]
+        //[Required(ErrorMessage = "Informe o sexo")]
         public string SexoId { get; set; }
 
         [Display(Name = "Informe o Logradouro")]
