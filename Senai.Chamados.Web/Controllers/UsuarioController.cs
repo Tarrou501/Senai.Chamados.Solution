@@ -10,9 +10,11 @@ using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.Controllers
 {
+    //[Authorize] //-> autorização no controlle
     public class UsuarioController : Controller
     {
         // GET: Usuario
+        //[Authorize]-> autorização somente na ActionResult
         [HttpGet]
         public ActionResult Index()
         {
@@ -26,6 +28,7 @@ namespace Senai.Chamados.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize] // autorização somente na ActionResult
         public ActionResult Editar(Guid id)
         {
             if(id == Guid.Empty)
@@ -136,5 +139,7 @@ namespace Senai.Chamados.Web.Controllers
                 }
             }
         }
+
+        
     }
 }
