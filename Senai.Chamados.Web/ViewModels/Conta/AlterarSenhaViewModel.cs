@@ -25,6 +25,6 @@ namespace Senai.Chamados.Web.ViewModels.Conta
         [Display(Name = "Confirma Senha")]
         [MinLength(4, ErrorMessage = "A senha deve ter pelo menos 4 caracteres")]
         [Compare(nameof(NovaSenha),ErrorMessage ="A senha e a confirmação de senha não são iguais")]
-        public string ConfirnmaSenha { get; set; }
+        public string ConfirmarSenha { get; set; }
     }
 }

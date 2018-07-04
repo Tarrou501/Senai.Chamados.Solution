@@ -2,7 +2,9 @@
 using Senai.Chamados.Data.Contexto;
 using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
+using Senai.Chamados.Domain.Enum;
 using Senai.Chamados.Web.ViewModels;
+using Senai.Chamados.Web.ViewModels.Usuario;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -40,8 +42,13 @@ namespace Senai.Chamados.Web.Controllers
                     var identity = new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.Name,objUsuario.Nome),
                         new Claim(ClaimTypes.Email,objUsuario.Email),
-                        new Claim(ClaimTypes.PrimarySid,objUsuario.Id.ToString()),
-                        new Claim(ClaimTypes.NameIdentifier,objUsuario.Id.ToString())
+                        //new Claim(ClaimTypes.PrimarySid,objUsuario.Id.ToString()),
+                        // Definifo Global.asax
+                        new Claim(ClaimTypes.NameIdentifier,objUsuario.Id.ToString()),
+
+                        new Claim(ClaimTypes.Role,objUsuario.TipoUsuario.ToString()),
+                        // Defini um Claim co novo tipo
+                        new Claim("Telefone",objUsuario.Telefone.ToString())
                     },"ApplicationCookie");
 
                     Request.GetOwinContext().Authentication.SignIn(identities: identity);
@@ -78,22 +85,22 @@ namespace Senai.Chamados.Web.Controllers
         [HttpGet]
         public ActionResult CadastrarUsuario()
         {
-            CadastrarUsuarioViewModel objCadastrarUsuario = new CadastrarUsuarioViewModel();
+            UsuarioViewModel objCadastrarUsuario = new UsuarioViewModel();
 
             // teste para verificar a visualização na tela
             //objCadastrarUsuario.Nome = "Leonardo";
             //objCadastrarUsuario.Email = "Leonardo@gmail.com.br";
 
-            objCadastrarUsuario.Sexo = ListaSexo();
+            objCadastrarUsuario.ListaSexo = ListaSexo();
 
             return View(objCadastrarUsuario);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CadastrarUsuario(CadastrarUsuarioViewModel usuario)
+        public ActionResult CadastrarUsuario(UsuarioViewModel usuario)
         {
-            usuario.Sexo = ListaSexo();
+            usuario.ListaSexo = ListaSexo();
             if (!ModelState.IsValid) {
                 ViewBag.Erro = "Dados inválido";
                 return View(usuario);
@@ -132,11 +139,12 @@ namespace Senai.Chamados.Web.Controllers
                 usuario.Telefone = usuario.Telefone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "").Trim();
                 usuario.Cpf = usuario.Cpf.Replace(".","").Replace("-","");
                 usuario.Cep = usuario.Cep.Replace("-", "");
+                usuario.TipoUsuario = EnTipoUsuario.Padrao;
 
                 using (UsuarioRepositorio _repositorio = new UsuarioRepositorio())
                 {
                     //_repositorio.Inserir(objUsuario);
-                    _repositorio.Inserir(Mapper.Map<CadastrarUsuarioViewModel,UsuarioDomain>(usuario));
+                    _repositorio.Inserir(Mapper.Map<UsuarioViewModel,UsuarioDomain>(usuario));
                 }
 
                 TempData["Messagem"] = "Usuário cadastrado";

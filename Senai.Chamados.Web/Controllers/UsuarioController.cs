@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.Controllers
 {
-    //[Authorize] //-> autorização no controlle
+    //[Authorize(Roles = "Administrador") ]//-> autorização no controlle  e somenete para role Administrador
     public class UsuarioController : Controller
     {
         // GET: Usuario
@@ -18,6 +18,12 @@ namespace Senai.Chamados.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+           // if (!User.IsInRole("Administrador"))
+           // {
+            //    ViewBag.Erro = " Voce não tem permissão para acessar esta tela.";
+            //    return View();
+           // }
+
             ListaUsuarioViewModel vmListaUsuario= new ListaUsuarioViewModel();
 
             using (UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
@@ -28,7 +34,8 @@ namespace Senai.Chamados.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize] // autorização somente na ActionResult
+        //   [Authorize] // autorização somente na ActionResult
+        [Authorize(Roles = "Administrador")]
         public ActionResult Editar(Guid id)
         {
             if(id == Guid.Empty)
@@ -59,6 +66,7 @@ namespace Senai.Chamados.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Editar (UsuarioViewModel usuario)
         {
             if (!ModelState.IsValid)

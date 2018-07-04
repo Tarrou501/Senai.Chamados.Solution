@@ -11,15 +11,22 @@
 }
 
 
-
-
 <main role="main" class="container">
 
     <div class="starter-template">
         <h2>Tela do Usuario</h2>
 
+        @if (ViewBag.Erro != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Erro
+            </div>
+        }
+
         @TempData["Erro"]
 
+        @if (Model != null)
+        {
         <table class="table">
             <thead>
                 <tr>
@@ -42,5 +49,6 @@
                 }
             </tbody>
         </table>
+        }
     </div>
 </main><!-- /.container -->

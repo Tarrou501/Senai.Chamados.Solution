@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Senai.Chamados.Domain.Enum;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.ViewModels.Usuario
 {
-    public class UsuarioViewModel:BaseViewModel
+    public class UsuarioViewModel : BaseViewModel
     {
         [Display(Name = "Informe o Nome")]
         [Required(ErrorMessage = "Informe o campo nome")]
@@ -31,11 +32,14 @@ namespace Senai.Chamados.Web.ViewModels.Usuario
         [MaxLength(8)]
         public String Senha { get; set; }
 
+        public SelectList ListaSexo{get;set;}
+
         // SelectList vai contem uma lista de dados para uso do Combobox
-        public SelectList Sexo { get; set; }
+        public EnSexo Sexo { get; set; }
+        public EnTipoUsuario TipoUsuario { get; set; }
 
         //[Required(ErrorMessage = "Informe o sexo")]
-        public string SexoId { get; set; }
+        //public string SexoId { get; set; }
 
         [Display(Name = "Informe o Logradouro")]
         public string Logradouro { get; set; }

@@ -45,6 +45,8 @@
     <Compile Include="Contratos\IUsuarioRepositorio.cs" />
     <Compile Include="Entidades\BaseDomain.cs" />
     <Compile Include="Entidades\UsuarioDomain.cs" />
+    <Compile Include="Enum\EnSexo.cs" />
+    <Compile Include="Enum\EnTipoUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

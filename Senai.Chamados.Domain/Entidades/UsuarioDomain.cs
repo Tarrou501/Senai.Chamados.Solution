@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senai.Chamados.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,8 +21,11 @@ namespace Senai.Chamados.Domain.Entidades
         [Required]
         [MaxLength(8)]
         public string Senha { get; set; }
-        public string Telefone { get; set; }
 
+        public EnTipoUsuario TipoUsuario { get; set; }
+        public EnSexo Sexo { get; set; }
+
+        public string Telefone { get; set; }
         
         [MaxLength(11)]
         public string Cpf { get; set; }        
@@ -29,7 +33,6 @@ namespace Senai.Chamados.Domain.Entidades
         public string Numero { get; set; }
         public string Complemento { get; set; }
         public string Bairro { get; set; }
-
         [MaxLength(8)]
         public string Cep { get; set; }
         public string Cidade { get; set; }
