@@ -141,6 +141,7 @@
     <Compile Include="Automapper\AutoMapperConfig.cs" />
     <Compile Include="Automapper\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Automapper\ViewModelToDomainMappingProfile.cs" />
+    <Compile Include="Controllers\ChamadoController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ErrosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -153,6 +154,8 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CadastrarUsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Chamados\ChamadoViewModel.cs" />
+    <Compile Include="ViewModels\Chamados\ListaChamadoViewModel.cs" />
     <Compile Include="ViewModels\Conta\AlterarSenhaViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\Usuario\ListaUsuarioViewModel.cs" />
@@ -179,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Chamado\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senai.Chamados.Data\Senai.Chamados.Data.csproj">

@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.Controllers
 {
-    //[Authorize(Roles = "Administrador") ]//-> autorização no controlle  e somenete para role Administrador
+    [Authorize(Roles = "Administrador") ]//-> autorização no controlle  e somenete para role Administrador
     public class UsuarioController : Controller
     {
         // GET: Usuario
@@ -66,7 +66,7 @@ namespace Senai.Chamados.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador")]
+       // [Authorize(Roles = "Administrador")]
         public ActionResult Editar (UsuarioViewModel usuario)
         {
             if (!ModelState.IsValid)
