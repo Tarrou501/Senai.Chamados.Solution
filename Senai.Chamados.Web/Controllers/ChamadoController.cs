@@ -37,5 +37,43 @@ namespace Senai.Chamados.Web.Controllers
             }
             return View(vmListaChamados);
         }
+
+        [HttpGet]
+        public ActionResult Cadastrar()
+        {
+            ChamadoViewModel vmChamado = new ChamadoViewModel();
+            return View(vmChamado);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Cadastrar(ChamadoViewModel chamado)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.Erro = "Dados inválidos";
+                    return View(chamado);
+                }
+
+                using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
+                {
+                    var identity = User.Identity as ClaimsIdentity;
+                    var id = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                    chamado.IdUsuario = new Guid(id);
+                    objRepoChamado.Inserir(Mapper.Map<ChamadoViewModel,ChamadoDomain>(chamado));
+                }
+                TempData["Sucesso"] = "Chamado Cadastrado. Aguarde!!";
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex) {
+                ViewBag.Erro = ex.Message;
+                return View(chamado);
+            }
+            
+            return View();
+        }
+
     }
 }
