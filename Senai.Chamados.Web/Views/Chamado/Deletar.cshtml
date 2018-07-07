@@ -1,0 +1,18 @@
+﻿@model Senai.Chamados.Web.ViewModels.Chamados.ChamadoViewModel
+@{
+    ViewBag.Title = "Deletar";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>Excluir chamado</h2>
+
+@using (Html.BeginForm("Deletar", "Chamado", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Id)
+    @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <p> Você realmente deseja deletar o chamado @Model.Titulo </p>
+    <button class="btn btn-lg btn-primary btn-block" type="submit"> Excluir</button>
+}
+

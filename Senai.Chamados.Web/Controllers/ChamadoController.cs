@@ -70,10 +70,149 @@ namespace Senai.Chamados.Web.Controllers
             catch(Exception ex) {
                 ViewBag.Erro = ex.Message;
                 return View(chamado);
-            }
-            
-            return View();
+            }            
         }
 
+        [HttpGet]
+        public ActionResult Editar(string id = null) 
+        {
+            ChamadoViewModel objChamado = new  ChamadoViewModel();
+            try
+            {
+                if (id == null)
+                {
+                    TempData["Erro"] = "id não identificado";
+                    return RedirectToAction("Index");
+                }
+
+
+                using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
+                {
+                    objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(new Guid(id)));
+                    if(objChamado == null)
+                    {
+                        TempData["Erro"] = "Chamado não encontrado";
+                        return RedirectToAction("Index");
+                    }
+
+                    #region Buscar Id Usuario
+                    var identity = User.Identity as ClaimsIdentity;
+                    var IdUsuario = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                    #endregion
+
+                    if (User.IsInRole("Administrador") || IdUsuario == objChamado.IdUsuario.ToString()) {
+                        return View(objChamado);
+                    }
+                    else
+                    {
+                        TempData["Erro"] = "Este Chamado pertence a outro usuário";
+                        return RedirectToAction("Index");
+                    }                    
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Erro = ex.Message;
+                return View(objChamado);
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(ChamadoViewModel chamado)
+        {
+            
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.Erro = "Dados invaliado";
+                    return View(chamado);
+                }
+
+
+                using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
+                {
+                    objRepoChamado.Alterar(Mapper.Map<ChamadoViewModel, ChamadoDomain>(chamado));
+
+                    TempData["Sucesso"] = "Chamado alterado";
+                    return RedirectToAction("Index");
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Erro = ex.Message;
+                return View();
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult Deletar(string id)
+        {
+            if (id == null)
+            {
+                TempData["Erro"] = "Informe o id do chamado";
+                return RedirectToAction("Index");
+            }
+
+            ChamadoViewModel objChamado = new ChamadoViewModel();
+            using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
+            {
+                objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(new Guid(id)));
+
+                if (objChamado == null)
+                {
+                    TempData["Erro"] = "Chamado não encontrado";
+                    return RedirectToAction("Index");
+                }
+
+                #region Buscar Id Usuario
+                var identity = User.Identity as ClaimsIdentity;
+                var IdUsuario = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                #endregion
+
+                if (User.IsInRole("Administrador") || IdUsuario == objChamado.IdUsuario.ToString())
+                {
+                    return View(objChamado);
+                }
+                else
+                {
+                    TempData["Erro"] =  "Você não possui permissão para excluir este chamado";
+                    return RedirectToAction("Index");
+                }
+                
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Deletar(ChamadoViewModel chamado)
+        {
+            if (chamado.Id == Guid.Empty)
+            {
+                TempData["Erro"] = "Informe o id do chamado";
+                return RedirectToAction("Index");
+            }
+
+            using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
+            {
+                ChamadoViewModel objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(chamado.Id));
+                if (objChamado == null)
+                {
+                    TempData["Erro"] = "Chamado não encontrado";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    objRepoChamado.Deletar(Mapper.Map<ChamadoViewModel, ChamadoDomain>(objChamado));
+                    TempData["Erro"] = "Chamado excluído";
+                    return RedirectToAction("Index");
+                }
+            }
+        }
     }
 }

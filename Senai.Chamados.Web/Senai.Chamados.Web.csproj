@@ -171,6 +171,8 @@
     <Content Include="Views\Perfil\AlterarSenha.cshtml" />
     <Content Include="Views\Chamado\Index.cshtml" />
     <Content Include="Views\Chamado\Cadastrar.cshtml" />
+    <Content Include="Views\Chamado\Editar.cshtml" />
+    <Content Include="Views\Chamado\Deletar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
