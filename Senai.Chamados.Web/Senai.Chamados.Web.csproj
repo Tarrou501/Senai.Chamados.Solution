@@ -141,6 +141,7 @@
     <Compile Include="Controllers\ChamadoController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ErrosController.cs" />
+    <Compile Include="Controllers\GraficosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -148,6 +149,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Util\Hash.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CadastrarUsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Graficos\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senai.Chamados.Data\Senai.Chamados.Data.csproj">

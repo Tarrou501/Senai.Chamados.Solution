@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201807042230589_Alterar_Tabela_Chamado_04_07_2018.Designer.cs">
       <DependentUpon>201807042230589_Alterar_Tabela_Chamado_04_07_2018.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807102347591_AlteracaoTabelaUsuario_10_07_2018.cs" />
+    <Compile Include="Migrations\201807102347591_AlteracaoTabelaUsuario_10_07_2018.Designer.cs">
+      <DependentUpon>201807102347591_AlteracaoTabelaUsuario_10_07_2018.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\ChamadoRepositorio.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807042230589_Alterar_Tabela_Chamado_04_07_2018.resx">
       <DependentUpon>201807042230589_Alterar_Tabela_Chamado_04_07_2018.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807102347591_AlteracaoTabelaUsuario_10_07_2018.resx">
+      <DependentUpon>201807102347591_AlteracaoTabelaUsuario_10_07_2018.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

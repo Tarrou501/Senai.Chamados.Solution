@@ -74,7 +74,8 @@ namespace Senai.Chamados.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Editar(string id = null) 
+        //public ActionResult Editar(string id = null) 
+        public ActionResult Editar(Guid? id)
         {
             ChamadoViewModel objChamado = new  ChamadoViewModel();
             try
@@ -88,8 +89,9 @@ namespace Senai.Chamados.Web.Controllers
 
                 using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
                 {
-                    objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(new Guid(id)));
-                    if(objChamado == null)
+                    //objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(new Guid(id)));
+                    objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(id.Value ));
+                    if (objChamado == null)
                     {
                         TempData["Erro"] = "Chamado não encontrado";
                         return RedirectToAction("Index");
@@ -151,68 +153,90 @@ namespace Senai.Chamados.Web.Controllers
 
 
         [HttpGet]
-        public ActionResult Deletar(string id)
+        //public ActionResult Deletar(string id= null)
+        public ActionResult Deletar(Guid? id )
         {
-            if (id == null)
-            {
-                TempData["Erro"] = "Informe o id do chamado";
-                return RedirectToAction("Index");
-            }
-
             ChamadoViewModel objChamado = new ChamadoViewModel();
-            using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
+            try
             {
-                objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(new Guid(id)));
-
-                if (objChamado == null)
+                if (id == null)
                 {
-                    TempData["Erro"] = "Chamado não encontrado";
+                    TempData["Erro"] = "Informe o id do chamado";
                     return RedirectToAction("Index");
                 }
 
-                #region Buscar Id Usuario
-                var identity = User.Identity as ClaimsIdentity;
-                var IdUsuario = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-                #endregion
+  
+                using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
+                {
+                    //objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(new Guid(id)));
+                    objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(id.Value));
 
-                if (User.IsInRole("Administrador") || IdUsuario == objChamado.IdUsuario.ToString())
-                {
-                    return View(objChamado);
+                    if (objChamado == null)
+                    {
+                        TempData["Erro"] = "Chamado não encontrado";
+                        return RedirectToAction("Index");
+                    }
+
+                    #region Buscar Id Usuario
+                    var identity = User.Identity as ClaimsIdentity;
+                    var IdUsuario = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                    #endregion
+
+                    if (User.IsInRole("Administrador") || IdUsuario == objChamado.IdUsuario.ToString())
+                    {
+                        return View(objChamado);
+                    }
+                    else
+                    {
+                        TempData["Erro"] = "Você não possui permissão para excluir este chamado";
+                        return RedirectToAction("Index");
+                    }
+
                 }
-                else
-                {
-                    TempData["Erro"] =  "Você não possui permissão para excluir este chamado";
-                    return RedirectToAction("Index");
-                }
-                
             }
+            catch (Exception ex)
+            {
+
+                ViewBag.Erro = ex.Message;
+                return View(objChamado);
+            }
+            
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Deletar(ChamadoViewModel chamado)
         {
-            if (chamado.Id == Guid.Empty)
+            try
             {
-                TempData["Erro"] = "Informe o id do chamado";
-                return RedirectToAction("Index");
-            }
+                if (chamado.Id == Guid.Empty)
+                {
+                    TempData["Erro"] = "Informe o id do chamado";
+                    return RedirectToAction("Index");
+                }
 
-            using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
-            {
-                ChamadoViewModel objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(chamado.Id));
-                if (objChamado == null)
+                using (ChamadoRepositorio objRepoChamado = new ChamadoRepositorio())
                 {
-                    TempData["Erro"] = "Chamado não encontrado";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
+                    ChamadoViewModel objChamado = Mapper.Map<ChamadoDomain, ChamadoViewModel>(objRepoChamado.BuscarPorId(chamado.Id));
+                    if (objChamado == null)
+                    {
+                        TempData["Erro"] = "Chamado não encontrado";
+                        return RedirectToAction("Index");
+                    }
+
                     objRepoChamado.Deletar(Mapper.Map<ChamadoViewModel, ChamadoDomain>(objChamado));
-                    TempData["Erro"] = "Chamado excluído";
+                    TempData["Sucesso"] = "Chamado excluído";
                     return RedirectToAction("Index");
+
                 }
             }
+            catch (Exception ex)
+            {
+
+                ViewBag.Erro = ex.Message;
+                return View(chamado);
+            }
+            
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Senai.Chamados.Data.Repositorios;
 using Senai.Chamados.Domain.Entidades;
+using Senai.Chamados.Web.Util;
 using Senai.Chamados.Web.ViewModels.Usuario;
 using System;
 using System.Collections.Generic;
@@ -80,6 +81,7 @@ namespace Senai.Chamados.Web.Controllers
                 usuario.Cpf = usuario.Cpf.Replace(".", "").Replace("-", "");
                 usuario.Cep = usuario.Cep.Replace("-", "");
                 usuario.Telefone = usuario.Telefone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "").Trim();
+                usuario.Senha = Hash.GerarHash(usuario.Senha);
 
                 using (UsuarioRepositorio _repUsuario = new UsuarioRepositorio())
                 {
