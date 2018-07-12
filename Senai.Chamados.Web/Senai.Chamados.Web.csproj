@@ -114,6 +114,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\senai.png" />
@@ -122,6 +124,13 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -156,6 +165,8 @@
     <Compile Include="ViewModels\Chamados\ChamadoViewModel.cs" />
     <Compile Include="ViewModels\Chamados\ListaChamadoViewModel.cs" />
     <Compile Include="ViewModels\Conta\AlterarSenhaViewModel.cs" />
+    <Compile Include="ViewModels\Grafico\GraficoQuantidadeViewModel.cs" />
+    <Compile Include="ViewModels\Grafico\ListaGraficoViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\Usuario\ListaUsuarioViewModel.cs" />
     <Compile Include="ViewModels\Usuario\UsuarioViewModel.cs" />
@@ -165,6 +176,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
@@ -175,6 +191,10 @@
     <Content Include="Views\Chamado\Cadastrar.cshtml" />
     <Content Include="Views\Chamado\Editar.cshtml" />
     <Content Include="Views\Chamado\Deletar.cshtml" />
+    <Content Include="Views\Graficos\Index.cshtml" />
+    <Content Include="Scripts\Chart.Util.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -184,7 +204,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Graficos\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senai.Chamados.Data\Senai.Chamados.Data.csproj">
