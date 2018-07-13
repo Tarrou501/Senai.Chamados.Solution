@@ -4,11 +4,20 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
+@section Styles{
+    <link href="~/Content/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/media/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <link href="~/Content/DataTables/extensions/Buttons/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/extensions/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet" />
+}
+
 <div class="jumbotron">
+
     <div class="container">
         <h1>Tela de Chamados</h1>
         <p>Visualizar todos os chamados cadastrado no sistema</p>
-        <p><a href="/Chamado/Cadastrar" class="btn btn-lg btn-primary"  role="button">Criar chamado</a></p>
+        <p><a href="/Chamado/Cadastrar" class="btn btn-lg btn-primary" role="button">Criar chamado</a></p>
     </div>
 </div>
 
@@ -25,7 +34,7 @@
         @TempData["Sucesso"]
     </div>
 }
-<table class="table">
+<table class="table" id="table-chamados">
     <thead>
         <tr>
             <th>Titulo</th>
@@ -33,7 +42,7 @@
             <th>Status</th>
             <th>Data Criação</th>
             <th>
-                
+
             </th>
         </tr>
     </thead>
@@ -46,7 +55,7 @@
                 <td>@Html.DisplayFor(x => chamado.Status)</td>
                 <td>@Html.DisplayFor(x => chamado.DataCriacao)</td>
                 <td class="text-center">
-                    <a class="btn btn-primary" href="/Chamado/Editar/@chamado.Id"><i class="glyphicon glyphicon-edit" ></i></a> &nbsp; &nbsp;
+                    <a class="btn btn-primary" href="/Chamado/Editar/@chamado.Id"><i class="glyphicon glyphicon-edit"></i></a> &nbsp; &nbsp;
 
                     @if (User.IsInRole("Administrador"))
                     {
@@ -58,3 +67,54 @@
         }
     </tbody>
 </table>
+@section  Scripts{
+
+
+    <script src="~/Scripts/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="~/Scripts/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+
+    <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.print.min.js"></script>
+
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Scripts/pdfmake/vfs_fonts.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#table-chamados").DataTable({
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                },
+                dom: '<"html5buttons"B>LTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv', title: 'chamados' },
+                    { extend: 'excel', title: 'chamados' },
+                    { extend: 'pdf', title: 'chamados' }
+                ]
+            });
+        });
+    </script>
+}
