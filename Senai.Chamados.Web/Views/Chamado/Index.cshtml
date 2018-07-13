@@ -4,59 +4,57 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-@section Styles{
-    <link href="http://getbootstrap.com/docs/4.1/examples/floating-labels/floating-labels.css" rel="stylesheet" />
+<div class="jumbotron">
+    <div class="container">
+        <h1>Tela de Chamados</h1>
+        <p>Visualizar todos os chamados cadastrado no sistema</p>
+        <p><a href="/Chamado/Cadastrar" class="btn btn-lg btn-primary"  role="button">Criar chamado</a></p>
+    </div>
+</div>
+
+@if (@TempData["Erro"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Erro"]
+    </div>
 }
 
-<main role="main" class="container">
-    <div class="starter-template">
-        <h2>Tela do Chamados</h2>
-
-        @if (@TempData["Erro"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["Erro"]
-            </div>
-        }
-
-        @if (@TempData["Sucesso"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["Sucesso"]
-            </div>
-        }
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Titulo</th>
-                        <th>Setor</th>
-                        <th>Status</th>
-                        <th>Data Criação</th>
-                        <th>
-                            <a href="/Chamado/Cadastrar"  class="btn btn-primary">Cadastrar</a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var chamado in Model.ListaChamados)
-                    {
-                    <tr>
-                        <td>@Html.DisplayFor(x => chamado.Titulo)</td>
-                        <td>@Html.DisplayFor(x => chamado.Setor)</td>
-                        <td>@Html.DisplayFor(x => chamado.Status)</td>
-                        <td>@Html.DisplayFor(x => chamado.DataCriacao )</td>
-                        <td>
-                            <a class="btn btn-primary" href="/Chamado/Editar/@chamado.Id">Editar</a> &nbsp; &nbsp;
-
-                            @if (User.IsInRole("Administrador"))
-                            {
-                                <a class="btn btn-danger" href="/Chamado/Deletar/@chamado.Id">Excluir</a>
-                            }
-                        </td>                        
-                           
-                    </tr>
-                    }
-                </tbody>
-            </table>
+@if (@TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Sucesso"]
     </div>
-</main><!-- /.container -->
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Setor</th>
+            <th>Status</th>
+            <th>Data Criação</th>
+            <th>
+                
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var chamado in Model.ListaChamados)
+        {
+            <tr>
+                <td>@Html.DisplayFor(x => chamado.Titulo)</td>
+                <td>@Html.DisplayFor(x => chamado.Setor)</td>
+                <td>@Html.DisplayFor(x => chamado.Status)</td>
+                <td>@Html.DisplayFor(x => chamado.DataCriacao)</td>
+                <td class="text-center">
+                    <a class="btn btn-primary" href="/Chamado/Editar/@chamado.Id"><i class="glyphicon glyphicon-edit" ></i></a> &nbsp; &nbsp;
+
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <a class="btn btn-danger" href="/Chamado/Deletar/@chamado.Id"><i class="glyphicon glyphicon-trash"></i></a>
+                    }
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

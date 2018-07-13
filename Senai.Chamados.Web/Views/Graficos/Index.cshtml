@@ -1,10 +1,18 @@
-﻿@model Senai.Chamados.Web.ViewModels.Grafico.ListaGraficoViewModel
+﻿@using Senai.Chamados.Web.Helpers
+@model Senai.Chamados.Web.ViewModels.Grafico.ListaGraficoViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<div class="container">
+<div class="jumbotron">
+    <div class="container">
+        <h1>Tela de Gráficos</h1>
+        <p>Visualizar todos os graficos</p>        
+    </div>
+</div>
+
+
 
     <div class="panel panel-default">
         <div class="panel-heading">Graficos de  Status</div>
@@ -36,7 +44,6 @@
         </div>
     </div>
 
-</div>
 
 @section Scripts{
     <script src="~/Scripts/Chart.min.js"></script>
@@ -44,148 +51,83 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var myBarStatus = new Chart(document.getElementById("bar-chart-status"), {
-                type: 'bar',
-                data: {
-                    labels: @Html.Raw(Json.Encode(Model.GraficoStatus.Labels)),
-                    datasets: [
-                        {
-                            label: "Status",
-                            backgroundColor: [
-                                window.chartColors.red,
-                                window.chartColors.yellow,
-                                window.chartColors.green
-                            ],
-                            data: @Html.Raw(Json.Encode(Model.GraficoStatus.Data))
-                        }
-                    ]
+             @Html.GerarGraficoChartJs("bar-chart-status",
+                                      Html.Raw(Json.Encode(Model.GraficoStatus.Labels)), 
+                                      Html.Raw(Json.Encode(Model.GraficoStatus.Data)),"bar","Grafico de Barra por Status")                      
 
+             @Html.GerarGraficoChartJs("pie-chart-status",
+                                      Html.Raw(Json.Encode(Model.GraficoStatus.Labels)),
+                                      Html.Raw(Json.Encode(Model.GraficoStatus.Data)),"pie", "Grafico de Pizza por Status")                      
 
-                },
-                options: {
-                    legend: { display: true },
-                    title: {
-                        display: true,
-                        text: "Grafico de Status Barra"
-                    },
-                    scales: {
-                        yAxes:[{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-
-                }
-            });
-
-
-            var myPieStatus = new Chart(document.getElementById("pie-chart-status"), {
-                type: 'pie',
-                data: {
-                    labels: @Html.Raw(Json.Encode(Model.GraficoStatus.Labels)),
-                    datasets: [
-                        {
-                            label: "Status",
-                            backgroundColor: [
-                                window.chartColors.red,
-                                window.chartColors.yellow,
-                                window.chartColors.green
-                            ],
-                            data: @Html.Raw(Json.Encode(Model.GraficoStatus.Data))
-                        }
-                    ]
-
-
-                },
-                options: {
-                    legend: { display: true },
-                    title: {
-                        display: true,
-                        text: "Grafico de Status Pizza"
-                    },
-                    scales: {
-                        yAxes:[{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-
-                }
-            });
+            
 
 
              var myBarSetor = new Chart(document.getElementById("bar-chart-setor"), {
-                type: 'bar',
-                data: {
-                    labels: @Html.Raw(Json.Encode(Model.GraficoSetor.Labels)),
-                    datasets: [
-                        {
-                            label: "Setor",
-                            backgroundColor: [
-                                window.chartColors.red,
-                                window.chartColors.yellow,
-                                window.chartColors.green
-                            ],
-                            data: @Html.Raw(Json.Encode(Model.GraficoSetor.Data))
-                        }
-                    ]
-
-
-                },
-                options: {
-                    legend: { display: true },
-                    title: {
-                        display: true,
-                        text: "Grafico de Setor Barra"
-                    },
-                    scales: {
-                        yAxes:[{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
+                 type: 'bar',
+                 data: {
+                     labels: @Html.Raw(Json.Encode(Model.GraficoSetor.Labels)),
+                     datasets: [
+                         {
+                             label: "Setor",
+                             backgroundColor: [
+                                 window.chartColors.red,
+                                 window.chartColors.yellow,
+                                 window.chartColors.green
+                             ],
+                             data: @Html.Raw(Json.Encode(Model.GraficoSetor.Data))
+                         }
+                     ]
+                 },
+                 options: {
+                     legend: { display: true },
+                     title: {
+                         display: true,
+                         text: "Grafico de Setor Barra"
+                     },
+                     scales: {
+                         yAxes:[{
+                             ticks: {
+                                 beginAtZero:true
+                             }
+                         }]
                     }
-
                 }
-            });
+             });
 
 
-            var myPieSetor = new Chart(document.getElementById("pie-chart-setor"), {
-                type: 'pie',
-                data: {
-                    labels: @Html.Raw(Json.Encode(Model.GraficoSetor.Labels)),
-                    datasets: [
-                        {
-                            label: "Status",
-                            backgroundColor: [
-                                window.chartColors.red,
-                                window.chartColors.yellow,
-                                window.chartColors.green
-                            ],
-                            data: @Html.Raw(Json.Encode(Model.GraficoSetor.Data))
-                        }
-                    ]
+             var myPieSetor = new Chart(document.getElementById("pie-chart-setor"), {
+                 type: 'pie',
+                 data: {
+                     labels: @Html.Raw(Json.Encode(Model.GraficoSetor.Labels)),
+                     datasets: [
+                         {
+                             label: "Status",
+                             backgroundColor: [
+                                 window.chartColors.red,
+                                 window.chartColors.yellow,
+                                 window.chartColors.green
+                             ],
+                             data: @Html.Raw(Json.Encode(Model.GraficoSetor.Data))
+                         }
+                     ]
+                 },
+                 options: {
+                     legend: { display: true },
+                     title: {
+                         display: true,
+                         text: "Grafico de Setor Pizza"
+                     },
+                     scales: {
+                         yAxes:[{
+                             ticks: {
+                                 beginAtZero:true
+                             }
+                         }]
+                     }
+                 }
+             });
 
 
-                },
-                options: {
-                    legend: { display: true },
-                    title: {
-                        display: true,
-                        text: "Grafico de Setor Pizza"
-                    },
-                    scales: {
-                        yAxes:[{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-
-                }
-            });
         });
 
     </script>

@@ -1,4 +1,5 @@
-﻿@model Senai.Chamados.Web.ViewModels.LoginViewModel
+﻿@using Senai.Chamados.Web.Helpers
+@model Senai.Chamados.Web.ViewModels.LoginViewModel
 
 @{
     ViewBag.Title = "Login";
@@ -7,42 +8,36 @@
 
 
 @section Styles{
-    <link href="http://getbootstrap.com/docs/4.1/examples/floating-labels/floating-labels.css" rel="stylesheet" />
-
+    <link href="~/Content/Sign.css" rel="stylesheet" />
 }
 
-@using (Html.BeginForm("Login", "Conta", FormMethod.Post, new { @Class = "form-signin" }))
+@using (Html.BeginForm("Login", "Conta", FormMethod.Post, new { @class = "form-signin" }))
 {
+
     @Html.AntiForgeryToken()
-    <img class="mb-4" src="~/Content/img/senai.png" alt="" width="300" height="72" align="center">
-    <h1 class="h3 mb-3 font-weight-normal" align="center" >Login</h1>
-    <p>Faça o Login para abrir chamados em nosso sistema</p>
+
+
+    <div class="text-center mb-4">
+        <br />
+        <img class="mb-4" src="~/Content/img/senai.png" alt="" width="125" height="72">
+        <h4 class="form-signin-heading">Faça o login para abrir chamados em nosso sistema.</h4>
+
+    </div>
 
     <p>@ViewBag.Erro</p>
-    <p>@TempData["Messagem"]</p>
+    <p>@TempData["Mensagem"]</p>
 
-    <div class="form-label-group">
-        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Email)
-        @Html.ValidationMessageFor(x => x.Email)
-    </div>
+    @Html.LabelFormSign("Email","Informe seu Email")    
+    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Informe o Email" })
+    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
 
 
-    <div class="form-label-group">
-        @* @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", placeHolder = "Informe a senha", required = "true" })  *@
-        <!--  Usar o componente PasswordFor em vez do TextBoxFor para aparecer * -->
-        @Html.PasswordFor(x => x.Senha, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Senha)
-        @Html.ValidationMessageFor(x => x.Senha)
-    </div>
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
+    @Html.LabelFor(x => x.Senha, new { @class = "sr-only" })
+    @Html.PasswordFor(x => x.Senha, new { @class = "form-control", placeholder = "Informe a Senha" })
+    @Html.ValidationMessageFor(x => x.Senha, "", new { @class = "text-danger" })
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+    <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
 }
 

@@ -5,40 +5,43 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-@section Styles{ 
-    <link href="https://getbootstrap.com/docs/4.1/examples/starter-template/starter-template.css"  rel="stylesheet"/>
-          
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Tela de Usuário</h1>
+        <p>Visualizar todos os usuários cadastrado no sistema</p>
+    </div>
+</div>
+<h2>Tela do Usuario</h2>
+
+@if (ViewBag.Erro != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Erro
+    </div>
+}
+@if(TempData["Erro"] != null)
+{
+    <div class="alert-danger">
+        @TempData["Erro"]
+    </div>
 }
 
 
-<main role="main" class="container">
-
-    <div class="starter-template">
-        <h2>Tela do Usuario</h2>
-
-        @if (ViewBag.Erro != null)
-        {
-            <div class="alert alert-danger">
-                @ViewBag.Erro
-            </div>
-        }
-
-        @TempData["Erro"]
-
-        @if (Model != null)
-        {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Telefone</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var usuario in Model.ListaUsuarios)
-                {
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefone</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuario in Model.ListaUsuarios)
+            {
                 <tr>
                     <td>@Html.DisplayFor(x => usuario.Nome)</td>
                     <td>@Html.DisplayFor(x => usuario.Email)</td>
@@ -46,9 +49,7 @@
                     <td><a href="/Usuario/Editar/@usuario.Id">Editar</a></td>
                     <td><a href="/Usuario/Deletar/@usuario.Id">Deletar</a></td>
                 </tr>
-                }
-            </tbody>
-        </table>
-        }
-    </div>
-</main><!-- /.container -->
+            }
+        </tbody>
+    </table>
+}
