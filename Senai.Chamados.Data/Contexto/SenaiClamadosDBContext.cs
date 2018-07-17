@@ -11,7 +11,7 @@ namespace Senai.Chamados.Data.Contexto
     public class SenaiChamadosDBContext:DbContext 
     {
 
-        public SenaiChamadosDBContext(): base(@"Data Source=.\SqlExpress; Initial Catalog = SenaiChamadoDb; user id = sa;password=senai@123")
+        public SenaiChamadosDBContext(): base("SenaiConnection")
         {
 
         }

@@ -1,15 +1,21 @@
 ﻿@model Senai.Chamados.Web.ViewModels.Chamados.ListaChamadoViewModel
+@using System.Web.Optimization
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
 @section Styles{
-    <link href="~/Content/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/DataTables/media/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-    <link href="~/Content/DataTables/extensions/Buttons/css/buttons.dataTables.min.css" rel="stylesheet" />
-    <link href="~/Content/DataTables/extensions/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet" />
+    @Styles.Render("~/bundles/DataTables/css")
+
+    @*<link href="~/Content/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/DataTables/media/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+        <link href="~/Content/DataTables/extensions/Buttons/css/buttons.dataTables.min.css" rel="stylesheet" />
+        <link href="~/Content/DataTables/extensions/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet" />*@
+
 }
 
 <div class="jumbotron">
@@ -34,6 +40,24 @@
         @TempData["Sucesso"]
     </div>
 }
+
+<div class="panel panel-default">
+    <div class="panel-heading">Filtro de Chamado</div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Index", "Chamado", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label for="titulo">titulo</label>
+                @Html.TextBox("titulo", "", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="setor">Setor</label>
+                @Html.DropDownList("setor", Model.ListaSetores, "Selecione o setor", new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        }
+    </div>
+</div>
 <table class="table" id="table-chamados">
     <thead>
         <tr>
@@ -69,19 +93,21 @@
 </table>
 @section  Scripts{
 
+    @Scripts.Render("~/bundles/DataTables/js")
 
-    <script src="~/Scripts/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+    @*<script src="~/Scripts/DataTables/media/js/jquery.dataTables.min.js"></script>
+        <script src="~/Scripts/DataTables/media/js/dataTables.bootstrap.min.js"></script>
 
-    <script src="~/Scripts/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+        <script src="~/Scripts/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
 
-    <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
-    <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.print.min.js"></script>
+        <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
+        <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.print.min.js"></script>
 
-    <script src="~/Scripts/jszip.min.js"></script>
-    <script src="~/Scripts/pdfmake/pdfmake.min.js"></script>
-    <script src="~/Scripts/pdfmake/vfs_fonts.js"></script>
+        <script src="~/Scripts/jszip.min.js"></script>
+        <script src="~/Scripts/pdfmake/pdfmake.min.js"></script>
+        <script src="~/Scripts/pdfmake/vfs_fonts.js"></script> *@
     <script type="text/javascript">
+
         $(document).ready(function () {
             $("#table-chamados").DataTable({
                 "language": {
